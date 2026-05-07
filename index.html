@@ -3,194 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jiu Jitsu Class Tracker</title>
+<title>Alliance Jiu Jitsu Cary</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #ffffff; --bg2: #f5f5f4; --bg3: #edede9;
-    --text: #1a1a18; --text2: #5f5e5a; --text3: #888780;
-    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.2);
-    --success-bg: #eaf3de; --success-text: #3b6d11; --success-border: rgba(59,109,17,0.3);
-    --warning-bg: #faeeda; --warning-text: #854f0b;
-    --info-bg: #e6f1fb; --info-text: #185fa5;
-    --radius: 8px; --radius-lg: 12px;
+    --black: #0d0d0d; --white: #f5f0e8; --red: #c0392b; --red-dark: #922b21;
+    --gold: #d4a017; --gray: #2a2a2a; --gray2: #3a3a3a; --gray3: #555; --text-muted: #888; --radius: 6px;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1a; --bg2: #252523; --bg3: #2e2e2b;
-      --text: #f0ede8; --text2: #b4b2a9; --text3: #888780;
-      --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.2);
-      --success-bg: #173404; --success-text: #c0dd97; --success-border: rgba(192,221,151,0.3);
-      --warning-bg: #412402; --warning-text: #fac775;
-      --info-bg: #042c53; --info-text: #b5d4f4;
-    }
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; padding: 16px; }
-  .app { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
-  h1 { font-size: 20px; font-weight: 500; color: var(--text); }
-  h1 span { font-size: 13px; font-weight: 400; color: var(--text3); display: block; margin-top: 2px; }
-  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
-  .section-label { font-size: 12px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-  .class-btn { display: flex; align-items: center; gap: 10px; width: 100%; background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 13px 14px; cursor: pointer; font-size: 15px; color: var(--text); margin-bottom: 8px; transition: background 0.15s; }
-  .class-btn:hover { background: var(--bg3); }
-  .class-btn:last-of-type { margin-bottom: 0; }
-  .class-btn.checked { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
-  .class-btn.checked .dot { background: var(--success-text); }
-  .lbl { flex: 1; text-align: left; }
-  .count { font-size: 13px; padding: 2px 9px; border-radius: 20px; background: var(--bg); border: 0.5px solid var(--border); color: var(--text2); }
-  .class-btn.checked .count { background: var(--success-text); color: white; border-color: transparent; }
-  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .metric { background: var(--bg2); border-radius: var(--radius); padding: 14px 10px; text-align: center; }
-  .metric .num { font-size: 26px; font-weight: 500; color: var(--text); }
-  .metric .mlbl { font-size: 12px; color: var(--text3); margin-top: 3px; }
-  .month-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-  .month-nav button { background: none; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 5px 11px; cursor: pointer; color: var(--text2); font-size: 13px; }
-  .month-nav button:hover { background: var(--bg2); }
-  .month-label { flex: 1; text-align: center; font-size: 15px; font-weight: 500; color: var(--text); }
-  .log-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .hint { font-size: 12px; color: var(--text3); }
-  .log-item { font-size: 13px; color: var(--text2); padding: 7px 0; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  .header { background: var(--black); border-bottom: 2px solid var(--red); padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+  .header-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 2px; line-height: 1; }
+  .header-text h1 span { color: var(--red); }
+  .header-text p { font-size: 11px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; }
+  .main { padding: 20px 24px; max-width: 500px; }
+  .config-banner { background: #1a1200; border: 1px solid var(--gold); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px; }
+  .config-banner p { font-size: 13px; color: var(--gold); margin-bottom: 8px; }
+  .config-banner input { width: 100%; background: var(--black); border: 1px solid var(--gray2); border-radius: var(--radius); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 10px; margin-bottom: 8px; }
+  .config-banner input:focus { outline: none; border-color: var(--gold); }
+  .config-save { background: var(--gold); border: none; border-radius: var(--radius); color: var(--black); font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; padding: 8px 18px; cursor: pointer; }
+  .month-nav { display: flex; align-items: center; margin-bottom: 20px; border: 1px solid var(--gray2); border-radius: var(--radius); overflow: hidden; }
+  .month-nav button { background: var(--gray); border: none; color: var(--text-muted); font-size: 18px; padding: 10px 16px; cursor: pointer; }
+  .month-nav button:hover { background: var(--gray2); color: var(--white); }
+  .month-name { flex: 1; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; background: var(--gray); padding: 10px 0; }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+  .metric { background: var(--gray); border-radius: var(--radius); padding: 14px 10px; text-align: center; border: 1px solid var(--gray2); }
+  .metric .num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 1; }
+  .metric.highlight .num { color: var(--red); }
+  .metric .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .class-btns { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .class-btn { display: flex; align-items: center; gap: 12px; width: 100%; background: var(--gray); border: 1px solid var(--gray2); border-radius: var(--radius); padding: 14px 16px; cursor: pointer; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; transition: background 0.15s, transform 0.1s; position: relative; overflow: hidden; }
+  .class-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gray3); }
+  .class-btn:hover:not(:disabled) { background: var(--gray2); transform: translateX(2px); }
+  .class-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .class-btn.has-entries::before { background: var(--red); }
+  .class-btn.has-entries { border-color: rgba(192,57,43,0.35); }
+  .btn-label { flex: 1; text-align: left; }
+  .btn-sub { font-size: 12px; color: var(--text-muted); }
+  .count-badge { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--text-muted); min-width: 28px; text-align: right; }
+  .class-btn.has-entries .count-badge { color: var(--red); }
+  .log-section { background: var(--gray); border: 1px solid var(--gray2); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+  .log-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--gray2); }
+  .log-header span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+  .log-body { max-height: 200px; overflow-y: auto; }
+  .log-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; color: #bbb; }
   .log-item:last-child { border-bottom: none; }
-  .tag { font-size: 11px; padding: 2px 7px; border-radius: 20px; margin-right: 4px; }
-  .tag-morning { background: var(--warning-bg); color: var(--warning-text); }
-  .tag-evening { background: var(--info-bg); color: var(--info-text); }
-  .undo { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 15px; padding: 0 2px; line-height: 1; }
-  .undo:hover { color: #e24b4a; }
-  .empty { font-size: 13px; color: var(--text3); padding: 8px 0; }
-  .copy-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 14px; padding: 11px; background: var(--bg); border: 0.5px solid var(--border2); border-radius: var(--radius); cursor: pointer; font-size: 14px; color: var(--text); }
-  .copy-btn:hover { background: var(--bg2); }
-  .footer { font-size: 12px; color: var(--text3); text-align: center; padding-bottom: 8px; }
+  .log-date { color: var(--white); font-weight: 500; }
+  .log-tag { font-size: 10px; padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tag-morning { background: rgba(212,160,23,0.15); color: var(--gold); }
+  .tag-evening { background: rgba(24,95,165,0.2); color: #7eb8f5; }
+  .log-empty { padding: 20px 14px; font-size: 13px; color: var(--text-muted); text-align: center; }
+  .status { font-size: 12px; color: var(--text-muted); text-align: center; padding: 6px 0; min-height: 26px; }
+  .status.ok { color: #5dca95; } .status.err { color: #e88; } .status.loading { color: var(--gold); }
+  .spinner { display: inline-block; width: 11px; height: 11px; border: 2px solid rgba(255,255,255,0.15); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 5px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .summary-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; background: var(--red); border: none; border-radius: var(--radius); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; cursor: pointer; margin-bottom: 20px; }
+  .summary-btn:hover { background: var(--red-dark); }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: center; justify-content: center; padding: 24px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--gray); border: 1px solid var(--gray2); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 400px; }
+  .modal h2 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 14px; }
+  .modal pre { background: var(--black); border-radius: var(--radius); padding: 14px; font-size: 13px; color: #ccc; white-space: pre-wrap; line-height: 1.6; margin-bottom: 14px; }
+  .modal-actions { display: flex; gap: 8px; }
+  .modal-actions button { flex: 1; padding: 10px; border-radius: var(--radius); cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1px; border: none; }
+  .btn-copy { background: var(--red); color: var(--white); } .btn-copy:hover { background: var(--red-dark); }
+  .btn-close { background: var(--gray2); color: var(--white); } .btn-close:hover { background: #444; }
+  .setup-guide { background: var(--gray); border: 1px solid var(--gray2); border-radius: var(--radius); padding: 16px; margin-bottom: 20px; }
+  .setup-guide h3 { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--gold); margin-bottom: 10px; }
+  .setup-guide ol { padding-left: 18px; }
+  .setup-guide li { font-size: 13px; color: #bbb; line-height: 1.8; margin-bottom: 2px; }
+  .setup-guide a { color: var(--gold); }
+  .setup-guide code { background: var(--black); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--white); }
+  .footer { font-size: 11px; color: var(--gray3); text-align: center; padding: 4px 0 28px; }
 </style>
 </head>
 <body>
-<div class="app">
-  <div>
-    <h1>Jiu Jitsu Tracker <span>Check in after each class</span></h1>
+
+<div class="header">
+  <!-- Alliance Jiu Jitsu triangle logo (SVG recreation) -->
+  <svg class="alliance-logo" width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="50,4 96,90 4,90" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="1"/>
+    <polygon points="50,18 84,82 16,82" fill="#0d0d0d"/>
+    <!-- Eagle silhouette simplified -->
+    <path d="M50 30 C44 36 38 42 38 50 C38 56 42 60 50 65 C58 60 62 56 62 50 C62 42 56 36 50 30Z" fill="#f5f0e8"/>
+    <path d="M38 50 C32 47 26 48 22 52 C26 55 33 54 38 50Z" fill="#f5f0e8"/>
+    <path d="M62 50 C68 47 74 48 78 52 C74 55 67 54 62 50Z" fill="#f5f0e8"/>
+    <path d="M46 62 C44 68 45 74 50 76 C55 74 56 68 54 62 C52 64 48 64 46 62Z" fill="#f5f0e8"/>
+  </svg>
+  <div class="header-text">
+    <h1>Alliance <span>Jiu Jitsu</span></h1>
+    <p>Cary &nbsp;·&nbsp; Class Tracker</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="config-banner" id="config-banner">
+    <p>🔑 Enter your Google Sheets API key to save check-ins. <a href="#setup-guide" style="color:var(--gold)">How to get one ↓</a></p>
+    <input type="password" id="api-key-input" placeholder="Paste your Google Sheets API key here..." />
+    <button class="config-save" onclick="saveApiKey()">Save Key</button>
   </div>
 
-  <div class="card">
-    <div class="month-nav">
-      <button onclick="changeMonth(-1)">&#8249;</button>
-      <span class="month-label" id="month-label"></span>
-      <button onclick="changeMonth(1)">&#8250;</button>
-    </div>
-
-    <div class="section-label">Tuesday</div>
-    <button class="class-btn" id="btn-tue-morning" onclick="addEntry('tue-morning')">
-      <span class="dot"></span><span class="lbl">Morning</span><span class="count" id="c-tue-morning">0</span>
-    </button>
-    <button class="class-btn" id="btn-tue-evening" onclick="addEntry('tue-evening')">
-      <span class="dot"></span><span class="lbl">Evening</span><span class="count" id="c-tue-evening">0</span>
-    </button>
-
-    <div class="section-label" style="margin-top:14px;">Thursday</div>
-    <button class="class-btn" id="btn-thu-morning" onclick="addEntry('thu-morning')">
-      <span class="dot"></span><span class="lbl">Morning</span><span class="count" id="c-thu-morning">0</span>
-    </button>
+  <div class="month-nav">
+    <button onclick="changeMonth(-1)">&#8249;</button>
+    <div class="month-name" id="month-name"></div>
+    <button onclick="changeMonth(1)">&#8250;</button>
   </div>
 
   <div class="metrics">
-    <div class="metric"><div class="num" id="m-total">0</div><div class="mlbl">Total</div></div>
-    <div class="metric"><div class="num" id="m-morning">0</div><div class="mlbl">Mornings</div></div>
-    <div class="metric"><div class="num" id="m-evening">0</div><div class="mlbl">Evenings</div></div>
+    <div class="metric highlight"><div class="num" id="m-total">0</div><div class="lbl">Total</div></div>
+    <div class="metric"><div class="num" id="m-morning">0</div><div class="lbl">Mornings</div></div>
+    <div class="metric"><div class="num" id="m-evening">0</div><div class="lbl">Evenings</div></div>
   </div>
 
-  <div class="card">
+  <div class="section-label">Tuesday</div>
+  <div class="class-btns">
+    <button class="class-btn" id="btn-tue-morning" onclick="checkIn('tue-morning')">
+      <span style="font-size:18px">🌅</span>
+      <div class="btn-label"><div>Morning class</div><div class="btn-sub">Tuesday AM</div></div>
+      <span class="count-badge" id="c-tue-morning">0</span>
+    </button>
+    <button class="class-btn" id="btn-tue-evening" onclick="checkIn('tue-evening')">
+      <span style="font-size:18px">🌙</span>
+      <div class="btn-label"><div>Evening class</div><div class="btn-sub">Tuesday PM</div></div>
+      <span class="count-badge" id="c-tue-evening">0</span>
+    </button>
+  </div>
+
+  <div class="section-label">Thursday</div>
+  <div class="class-btns">
+    <button class="class-btn" id="btn-thu-morning" onclick="checkIn('thu-morning')">
+      <span style="font-size:18px">🌅</span>
+      <div class="btn-label"><div>Morning class</div><div class="btn-sub">Thursday AM</div></div>
+      <span class="count-badge" id="c-thu-morning">0</span>
+    </button>
+  </div>
+
+  <div class="log-section">
     <div class="log-header">
-      <div class="section-label" style="margin-bottom:0;">Log</div>
-      <span class="hint">tap a class to check in</span>
+      <span>Session log</span>
+      <span id="log-hint">tap a class to check in</span>
     </div>
-    <div id="log-list"><div class="empty">No classes logged this month yet.</div></div>
-    <button class="copy-btn" onclick="copyMonthSummary()">&#128203; Copy monthly summary</button>
+    <div class="log-body" id="log-body">
+      <div class="log-empty">No classes logged yet this month.</div>
+    </div>
   </div>
 
-  <div class="footer">Data saved in this browser &mdash; use the same device each time</div>
+  <div class="status" id="status"></div>
+
+  <button class="summary-btn" onclick="showSummary()">📋 &nbsp;Monthly Summary</button>
+
+  <div class="setup-guide" id="setup-guide">
+    <h3>⚙ One-time Setup — Get your free API Key</h3>
+    <ol>
+      <li>Go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → sign in with your Google account</li>
+      <li>Create a new project (name it anything, e.g. <code>dojo-tracker</code>)</li>
+      <li>Go to <strong>APIs &amp; Services → Library</strong> → search <code>Google Sheets API</code> → Enable it</li>
+      <li>Go to <strong>APIs &amp; Services → Credentials</strong> → click <strong>Create Credentials → API Key</strong></li>
+      <li>Click <strong>Edit API Key</strong> → under <em>Application restrictions</em> → select <strong>Websites</strong> → add <code>https://YOUR-USERNAME.github.io/*</code></li>
+      <li>Under <em>API restrictions</em> → select <strong>Restrict key</strong> → choose <strong>Google Sheets API</strong> only → Save</li>
+      <li>Copy the key → paste it in the yellow box above → click Save Key</li>
+      <li>The key is stored only in <em>your</em> browser. Visitors to the public page cannot save anything.</li>
+    </ol>
+  </div>
+
+  <div class="footer">Your API key lives only in your browser · Never uploaded to GitHub · Public visitors are read-only</div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2>📋 Monthly Summary</h2>
+    <pre id="summary-text"></pre>
+    <div class="modal-actions">
+      <button class="btn-copy" onclick="copySummary()">Copy</button>
+      <button class="btn-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
 </div>
 
 <script>
+const SPREADSHEET_ID = '1W1IjbxuXADEDJMZKjvx73RczBZe422k1k3el3-On6k8';
+const SHEET_NAME = 'Sheet1';
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const LABELS = {'tue-morning':'Tue Morning','tue-evening':'Tue Evening','thu-morning':'Thu Morning'};
-const TYPES = {'tue-morning':'morning','tue-evening':'evening','thu-morning':'morning'};
+const SES_TYPE = {'tue-morning':'morning','tue-evening':'evening','thu-morning':'morning'};
+const DAYS = {'tue-morning':'Tuesday','tue-evening':'Tuesday','thu-morning':'Thursday'};
 
-let now = new Date();
-let viewYear = now.getFullYear(), viewMonth = now.getMonth();
+let viewYear = new Date().getFullYear(), viewMonth = new Date().getMonth();
+let allEntries = [], busy = false;
 
-function key(y,m){ return 'jj_'+y+'_'+m; }
-function load(y,m){ try{ return JSON.parse(localStorage.getItem(key(y,m))) || {entries:[]}; }catch(e){ return {entries:[]}; } }
-function save(y,m,d){ localStorage.setItem(key(y,m), JSON.stringify(d)); }
+function getKey() { return localStorage.getItem('jj_api_key') || ''; }
 
-function changeMonth(dir){
+function saveApiKey() {
+  const k = document.getElementById('api-key-input').value.trim();
+  if (!k) return;
+  localStorage.setItem('jj_api_key', k);
+  document.getElementById('config-banner').style.display = 'none';
+  setStatus('✓ Key saved — loading your data...', 'ok');
+  loadFromSheets();
+}
+
+function changeMonth(dir) {
   viewMonth += dir;
-  if(viewMonth>11){viewMonth=0;viewYear++;}
-  if(viewMonth<0){viewMonth=11;viewYear--;}
+  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
   render();
 }
 
-function addEntry(type){
-  const d = load(viewYear,viewMonth);
-  const now2 = new Date();
-  const dateStr = now2.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-  d.entries.push({type, date:dateStr, ts:Date.now()});
-  save(viewYear,viewMonth,d);
+async function loadFromSheets() {
+  const key = getKey();
+  if (!key) { render(); return; }
+  setStatus('<span class="spinner"></span>Loading from Google Sheets...', 'loading');
+  try {
+    const range = encodeURIComponent(SHEET_NAME + '!A2:E');
+    const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${key}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    allEntries = (data.values || []).map(r => ({
+      date: r[0]||'', day: r[1]||'', session: r[2]||'',
+      month: Number(r[3]), year: Number(r[4]),
+      type: Object.keys(LABELS).find(k => LABELS[k] === r[2]) || 'tue-morning'
+    }));
+    setStatus('');
+  } catch(e) { setStatus('⚠ ' + e.message, 'err'); }
   render();
 }
 
-function removeEntry(idx){
-  const d = load(viewYear,viewMonth);
-  d.entries.splice(idx,1);
-  save(viewYear,viewMonth,d);
+async function checkIn(type) {
+  if (busy) return;
+  const key = getKey();
+  if (!key) { setStatus('⚠ Add your API key first (see setup guide below)', 'err'); return; }
+  busy = true; setButtons(true);
+  setStatus('<span class="spinner"></span>Saving to Google Sheets...', 'loading');
+  const today = new Date();
+  const entry = {
+    date: today.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+    day: DAYS[type], session: LABELS[type],
+    month: today.getMonth()+1, year: today.getFullYear(), type
+  };
+  try {
+    const range = encodeURIComponent(SHEET_NAME + '!A:E');
+    const res = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED&key=${key}`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({values:[[entry.date,entry.day,entry.session,entry.month,entry.year]]}) }
+    );
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    allEntries.push(entry);
+    setStatus('✓ Saved to Google Sheets', 'ok');
+    setTimeout(() => setStatus(''), 3000);
+  } catch(e) { setStatus('⚠ ' + e.message, 'err'); }
+  busy = false; setButtons(false);
   render();
 }
 
-function render(){
-  document.getElementById('month-label').textContent = MONTHS[viewMonth]+' '+viewYear;
-  const d = load(viewYear,viewMonth);
-  const entries = d.entries||[];
+function setButtons(disabled) {
+  ['tue-morning','tue-evening','thu-morning'].forEach(t => { document.getElementById('btn-'+t).disabled = disabled; });
+}
+
+function monthEntries() { return allEntries.filter(e => e.month === viewMonth+1 && e.year === viewYear); }
+
+function render() {
+  document.getElementById('month-name').textContent = MONTHS[viewMonth] + ' ' + viewYear;
+  const entries = monthEntries();
   const counts = {'tue-morning':0,'tue-evening':0,'thu-morning':0};
-  entries.forEach(e=>{ if(counts[e.type]!==undefined) counts[e.type]++; });
-  Object.keys(counts).forEach(t=>{
+  entries.forEach(e => { if (counts[e.type] !== undefined) counts[e.type]++; });
+  Object.keys(counts).forEach(t => {
     document.getElementById('c-'+t).textContent = counts[t];
-    document.getElementById('btn-'+t).className = 'class-btn'+(counts[t]>0?' checked':'');
+    document.getElementById('btn-'+t).className = 'class-btn'+(counts[t]>0?' has-entries':'');
   });
   const total = entries.length;
-  const morning = entries.filter(e=>TYPES[e.type]==='morning').length;
-  const evening = entries.filter(e=>TYPES[e.type]==='evening').length;
   document.getElementById('m-total').textContent = total;
-  document.getElementById('m-morning').textContent = morning;
-  document.getElementById('m-evening').textContent = evening;
-  const logEl = document.getElementById('log-list');
-  if(!entries.length){ logEl.innerHTML='<div class="empty">No classes logged this month yet.</div>'; return; }
-  logEl.innerHTML = [...entries].reverse().map((e,ri)=>{
-    const realIdx = entries.length-1-ri;
-    const tagCls = TYPES[e.type]==='morning'?'tag-morning':'tag-evening';
-    return `<div class="log-item"><span>${e.date} &mdash; ${LABELS[e.type]}</span><div><span class="tag ${tagCls}">${TYPES[e.type]}</span><button class="undo" onclick="removeEntry(${realIdx})" title="Remove">&#x2715;</button></div></div>`;
+  document.getElementById('m-morning').textContent = entries.filter(e=>SES_TYPE[e.type]==='morning').length;
+  document.getElementById('m-evening').textContent = entries.filter(e=>SES_TYPE[e.type]==='evening').length;
+  const logBody = document.getElementById('log-body');
+  if (!entries.length) { logBody.innerHTML = '<div class="log-empty">No classes logged yet this month.</div>'; return; }
+  logBody.innerHTML = [...entries].reverse().map(e => {
+    const tagCls = SES_TYPE[e.type]==='morning'?'tag-morning':'tag-evening';
+    return `<div class="log-item"><span><span class="log-date">${e.date}</span> &mdash; ${e.session}</span><span class="log-tag ${tagCls}">${SES_TYPE[e.type]}</span></div>`;
   }).join('');
 }
 
-function copyMonthSummary(){
-  const d = load(viewYear,viewMonth);
-  const entries = d.entries||[];
+function showSummary() {
+  const entries = monthEntries();
   const counts = {'tue-morning':0,'tue-evening':0,'thu-morning':0};
-  entries.forEach(e=>{ if(counts[e.type]!==undefined) counts[e.type]++; });
+  entries.forEach(e => { if (counts[e.type] !== undefined) counts[e.type]++; });
   const total = entries.length;
   let lines = [
-    'Jiu Jitsu Classes — '+MONTHS[viewMonth]+' '+viewYear,'',
-    'Tuesday Morning: '+counts['tue-morning']+' class'+(counts['tue-morning']!==1?'es':''),
-    'Tuesday Evening: '+counts['tue-evening']+' class'+(counts['tue-evening']!==1?'es':''),
-    'Thursday Morning: '+counts['thu-morning']+' class'+(counts['thu-morning']!==1?'es':''),'',
-    'Total: '+total+' class'+(total!==1?'es':''),''
+    `Jiu Jitsu Classes \u2014 ${MONTHS[viewMonth]} ${viewYear}`,
+    `\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500`,
+    `Tuesday Morning:   ${counts['tue-morning']} class${counts['tue-morning']!==1?'es':''}`,
+    `Tuesday Evening:   ${counts['tue-evening']} class${counts['tue-evening']!==1?'es':''}`,
+    `Thursday Morning:  ${counts['thu-morning']} class${counts['thu-morning']!==1?'es':''}`,
+    `\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500`,
+    `Total: ${total} class${total!==1?'es':''}`, ''
   ];
-  if(entries.length){ lines.push('Dates:'); entries.forEach(e=>lines.push('  '+e.date+' — '+LABELS[e.type])); }
-  const text = lines.join('\n');
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn = document.querySelector('.copy-btn');
-    btn.textContent = '✓ Copied!';
-    setTimeout(()=>{ btn.innerHTML='&#128203; Copy monthly summary'; },2000);
-  }).catch(()=>{ alert(text); });
+  if (entries.length) { lines.push('Dates taught:'); entries.forEach(e => lines.push(`  \u2022 ${e.date} \u2014 ${e.session}`)); }
+  document.getElementById('summary-text').textContent = lines.join('\n');
+  document.getElementById('modal').classList.add('open');
 }
 
-render();
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', e => { if (e.target===document.getElementById('modal')) closeModal(); });
+
+function copySummary() {
+  navigator.clipboard.writeText(document.getElementById('summary-text').textContent).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.innerHTML = msg;
+  el.className = 'status'+(type?' '+type:'');
+}
+
+if (getKey()) { document.getElementById('config-banner').style.display='none'; loadFromSheets(); } else { render(); }
 </script>
 </body>
 </html>
